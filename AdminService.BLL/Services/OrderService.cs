@@ -2,9 +2,8 @@
 using AdminService.BLL.Interfaces;
 using AdminService.DAL.Entities;
 using AdminService.DAL.Interfaces;
-using System.Xml;
 
-namespace AspNetWeb_NLayer.BLL.Services
+namespace AdminService.BLL.Services
 {
     public class OrderService : IOrderService
     {

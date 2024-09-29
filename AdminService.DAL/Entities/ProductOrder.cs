@@ -1,4 +1,4 @@
-﻿//using AspNetWeb_NLayer.DAL.Filter;
+﻿using AdminService.DAL.Filters;
 using System.ComponentModel.DataAnnotations;
 
 
@@ -6,15 +6,15 @@ namespace AdminService.DAL.Entities
 {
     public class ProductOrder : IValidatableObject
     {
-        //[SwaggerIgnore]
+        [SwaggerIgnore]
         public int id {  get; set; }
         public string name { get; set; } = null!;
         public string typeEngeeniring { get; set; } = null!;
         public int timeStudy { get; set; }
         public float sumPay { get; set; }
-        //[SwaggerIgnore]
+        [SwaggerIgnore]
         public string guid { get; set; } = "";
-        //[SwaggerIgnore]
+        [SwaggerIgnore]
         public DateTime dateTime { get; set; }
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)

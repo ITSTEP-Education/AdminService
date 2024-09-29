@@ -3,22 +3,25 @@ using System.Data.Common;
 using AdminService.BLL.Interfaces;
 using AdminService.DAL.Entities;
 using AdminService.BLL.Infrastructures;
+using Asp.Versioning;
 
 namespace AdminService.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
-    public class EducationController : ControllerBase
+    [ApiVersion("1.0")]
+    [Route("api/v{version:apiVersion}/[controller]")]
+    public class AdministrateController : ControllerBase
     {
         private readonly IOrderService orderServ;
-        private readonly ILogger<EducationController> logger;
+        private readonly ILogger<AdministrateController> logger;
 
-        public EducationController(IOrderService orderService, ILogger<EducationController> logger)
+        public AdministrateController(IOrderService orderService, ILogger<AdministrateController> logger)
         {
             this.orderServ = orderService;
             this.logger = logger;
         }
 
+        [MapToApiVersion("1.0")]
         [HttpGet("product-orders", Name = "GetProductOrders")]
         public ActionResult<IEnumerable<ProductOrder>> getAllProductOrders()
         {
