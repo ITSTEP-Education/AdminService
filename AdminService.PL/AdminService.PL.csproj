@@ -4,6 +4,8 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <DocumentationFile>A:\OneDrive - ITSTEP\Asp.Net\Projects\ITSTEPEducation\AdminService\DocXML\AdministrateController.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

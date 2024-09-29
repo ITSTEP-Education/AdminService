@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<docs>
+    <members name="controller">
+		<GetAllProductOrders>
+			<summary>
+				request to get list of entities ProductOrders
+			</summary>
+			<returns>Ok(...) or BadRequest(...)</returns>
+			<remark code="200">list of ProductOrder</remark>
+			<exception cref="AdminServiceException" code="404">
+				appear if in db records or table is absent for ProductOrder
+			</exception>
+			<exception cref="DbException" code="400">
+				appear if non connected to SQL DB
+			</exception>
+		</GetAllProductOrders>
+    </members>
+</docs>

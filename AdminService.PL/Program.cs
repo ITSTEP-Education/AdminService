@@ -29,6 +29,10 @@ builder.Services.AddSwaggerGen(configure =>
 
     //connect attribute [SwaggerIgnore] to hide requested fields from SwaggerUI
     configure.SchemaFilter<SwaggerSkipPropertyFilter>();
+
+    //connect service of display XML comments in SwaggerUI
+    var basePath = AppContext.BaseDirectory;
+    configure.IncludeXmlComments(Path.Combine(basePath, "AdministrateController.xml"));
 });
 
 //Add services of versioning in Swagger

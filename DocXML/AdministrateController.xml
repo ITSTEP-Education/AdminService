@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>AdminService.PL</name>
+    </assembly>
+    <members>
+        <member name="M:AdminService.Controllers.AdministrateController.getAllProductOrders">
+            <summary>
+				request to get entities ProductItemDto
+			</summary><returns>Ok(...) or BadRequest(...)</returns><remark code="200">list of ProductOrder</remark><exception cref="T:AdminService.BLL.Infrastructures.AdminServiceException" code="404">
+				appear if in db records or table is absent for ProductOrder
+			</exception><exception cref="T:System.Data.Common.DbException" code="400">
+				appear if non connected to SQL DB
+			</exception>
+        </member>
+    </members>
+</doc>
