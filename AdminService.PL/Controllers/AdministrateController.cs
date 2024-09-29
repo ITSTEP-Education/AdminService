@@ -28,7 +28,7 @@ namespace AdminService.Controllers
         [MapToApiVersion("1.0")]
         [HttpGet("product-orders", Name = "GetProductOrders")]
         [ProducesResponseType(typeof(IEnumerable<ProductOrder>), (int)HttpStatusCode.OK)]
-        //[ProducesResponseType(typeof(StatusCode404), (int)HttpStatusCode.NotFound)]
+        [ProducesResponseType(typeof(StatusCode404), (int)HttpStatusCode.NotFound)]
         public ActionResult<IEnumerable<ProductOrder>> GetAllProductOrders()
         {
             try
