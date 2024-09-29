@@ -9,6 +9,8 @@ namespace AdminService.BLL.Interfaces
 
         IEnumerable<ProductOrder> getAllOrders();
 
+        void deleteOrder(string guid);
+
         void Dispose();
     }
 }

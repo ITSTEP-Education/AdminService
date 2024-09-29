@@ -4,14 +4,15 @@
         <name>AdminService.PL</name>
     </assembly>
     <members>
-        <member name="M:AdminService.Controllers.AdministrateController.getAllProductOrders">
+        <member name="M:AdminService.Controllers.AdministrateController.GetAllProductOrders">
             <summary>
-				request to get entities ProductItemDto
-			</summary><returns>Ok(...) or BadRequest(...)</returns><remark code="200">list of ProductOrder</remark><exception cref="T:AdminService.BLL.Infrastructures.AdminServiceException" code="404">
-				appear if in db records or table is absent for ProductOrder
-			</exception><exception cref="T:System.Data.Common.DbException" code="400">
-				appear if non connected to SQL DB
-			</exception>
+				request to get list of entities ProductOrders
+			</summary><responce code="200">received list of ProductOrder</responce><responce code="404">Failed request: Not found data</responce><responce code="409">Failed request: No connection to SqlDb carsdata</responce>
+        </member>
+        <member name="M:AdminService.Controllers.AdministrateController.DeleteProductOrder(System.String)">
+            <summary>
+				request to delete entity ProductOrder by guid after registration it
+			</summary><responce code="201">deleted ProductOrder from SQl DB</responce><responce code="404">Failed request: Not found data</responce><responce code="409">Failed request: No connection to SqlDb carsdata</responce>
         </member>
     </members>
 </doc>

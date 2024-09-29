@@ -19,6 +19,7 @@
     <Folder Include="Entities\" />
     <Folder Include="EF\" />
     <Folder Include="Filters\" />
+    <Folder Include="Infrastructures\" />
     <Folder Include="Repositories\" />
   </ItemGroup>
 

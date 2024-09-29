@@ -5,14 +5,17 @@
 			<summary>
 				request to get list of entities ProductOrders
 			</summary>
-			<returns>Ok(...) or BadRequest(...)</returns>
-			<remark code="200">list of ProductOrder</remark>
-			<exception cref="AdminServiceException" code="404">
-				appear if in db records or table is absent for ProductOrder
-			</exception>
-			<exception cref="DbException" code="400">
-				appear if non connected to SQL DB
-			</exception>
+			<responce code="200">received list of ProductOrder</responce>
+			<responce code="404">Failed request: Not found data</responce>
+			<responce code="409">Failed request: No connection to SqlDb carsdata</responce>
 		</GetAllProductOrders>
+		<DeleteProductOrder>
+			<summary>
+				request to delete entity ProductOrder by guid after registration it
+			</summary>
+			<responce code="201">deleted ProductOrder from SQl DB</responce>
+			<responce code="404">Failed request: Not found data</responce>
+			<responce code="409">Failed request: No connection to SqlDb carsdata</responce>
+		</DeleteProductOrder>
     </members>
 </docs>

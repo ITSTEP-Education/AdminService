@@ -5,6 +5,7 @@ using AdminService.DAL.Entities;
 using AdminService.BLL.Infrastructures;
 using Asp.Versioning;
 using System.Net;
+using AdminService.DAL.Infrastructures;
 
 namespace AdminService.Controllers
 {
@@ -27,19 +28,41 @@ namespace AdminService.Controllers
         [MapToApiVersion("1.0")]
         [HttpGet("product-orders", Name = "GetProductOrders")]
         [ProducesResponseType(typeof(IEnumerable<ProductOrder>), (int)HttpStatusCode.OK)]
-        public ActionResult<IEnumerable<ProductOrder>> getAllProductOrders()
+        //[ProducesResponseType(typeof(StatusCode404), (int)HttpStatusCode.NotFound)]
+        public ActionResult<IEnumerable<ProductOrder>> GetAllProductOrders()
         {
             try
             {
                 return Ok(orderServ.getAllOrders());
             }
-            catch (AdminServiceException ex)
+            catch (StatusCode404 ex)
             {
-                return NotFound(new { msg = ex.Message, prop = ex.property });
+                return NotFound(new { ex.code, ex.Message, ex.property });
             }
             catch (DbException ex)
             {
-                return BadRequest(new { msg = ex.Message, prop = ex.SqlState });
+                return BadRequest(new { ex.ErrorCode, ex.Message, ex.Source });
+            }
+        }
+
+        ///<include file='../DocXML/AdministrateControllerDoc.xml' path='docs/members[@name="controller"]/DeleteProductOrder/*'/>
+        [MapToApiVersion("1.0")]
+        [HttpDelete("product-order", Name = "DeleteProductOrder")]
+        [ProducesResponseType(typeof(StatusCode201), (int)HttpStatusCode.Created)]
+        public IActionResult DeleteProductOrder([FromQuery] string guid)
+        {
+            try
+            {
+                orderServ.deleteOrder(guid);
+                return Ok(new StatusCode201(guid));
+            }
+            catch (StatusCode404 ex)
+            {
+                return NotFound(new { ex.code, ex.Message, ex.property });
+            }
+            catch (ArgumentNullException ex)
+            {
+                return BadRequest(new { code = 400, ex.Message, ex.ParamName });
             }
         }
     }

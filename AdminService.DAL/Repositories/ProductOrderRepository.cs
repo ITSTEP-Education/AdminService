@@ -1,5 +1,6 @@
 ﻿using AdminService.DAL.EF;
 using AdminService.DAL.Entities;
+using AdminService.DAL.Infrastructures;
 using AdminService.DAL.Interfaces;
 
 namespace AdminService.DAL.Repositories
@@ -15,5 +16,12 @@ namespace AdminService.DAL.Repositories
 
         public IEnumerable<ProductOrder>? getAllItems() => context.productOrders;
 
+        public void deleteItem(string guid)
+        {  
+            ProductOrder? productOrder = this.context.productOrders.FirstOrDefault(o => o.guid.Equals(guid));
+            if (productOrder == null) throw new StatusCode404("productorders");
+
+            this.context.productOrders.Remove(productOrder);
+        }
     }
 }
