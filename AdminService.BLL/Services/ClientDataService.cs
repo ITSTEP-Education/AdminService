@@ -1,4 +1,5 @@
 ﻿using AdminService.BLL.Interfaces;
+using AdminService.DAL.Entities;
 using AdminService.DAL.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -17,7 +18,14 @@ namespace AdminService.BLL.Services
             this.db = db;
         }
 
-        public void deleteClient(string name)
+        public ClientData getClientData(string? name)
+        {
+            if (name == null || name == string.Empty) throw new ArgumentNullException(nameof(name));
+
+            return db.clientsData.getItem(name);
+        }
+
+        public void deleteClientData(string? name)
         {
             if (name == null || name == string.Empty) throw new ArgumentNullException(nameof(name));
 

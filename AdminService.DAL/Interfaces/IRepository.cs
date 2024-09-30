@@ -4,6 +4,7 @@
     {
         public IEnumerable<T>? getAllItems();
 
+        public T getItem(string name);
         public void deleteItem(string name);
     }
 }

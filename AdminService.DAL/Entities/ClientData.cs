@@ -10,6 +10,8 @@ namespace AdminService.DAL.Entities
         public string lastName { get; set; } = null!;
         public int age { get; set; }
         public string mobile { get; set; } = null!;
+
+        [SwaggerIgnore]
         public ClientOrder? clientOrder { get; set; }
     }
 }

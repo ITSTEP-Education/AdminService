@@ -68,16 +68,40 @@ namespace AdminService.Controllers
             }
         }
 
-        ///<include file='../DocXML/AdministrateControllerDoc.xml' path='docs/members[@name="controller"]/DeleteClientData/*'/>
+        ///<include file='../DocXML/AdministrateControllerDoc.xml' path='docs/members[@name="controller"]/GetClientData/*'/>
         [MapToApiVersion("1.0")]
-        [HttpDelete("client-data/{name}", Name = "DeleteClientData")]
-        [ProducesResponseType(typeof(StatusCode201), (int)HttpStatusCode.Created)]
-        public IActionResult DeleteClientData([FromRoute] string name)
+        [HttpGet("client-data/{firstName}-{lastName}", Name = "GetClientData")]
+        [ProducesResponseType(typeof(ClientData), (int)HttpStatusCode.OK)]
+        public ActionResult<ClientData> GetClientData([FromRoute] string firstName, string lastName)
         {
             try
             {
-                clientDataService.deleteClient(name);
-                return Ok(new StatusCode201(name));
+                return Ok(clientDataService.getClientData($"{firstName}-{lastName}"));
+            }
+            catch (StatusCode404 ex)
+            {
+                return NotFound(new { ex.code, ex.Message, ex.property });
+            }
+            catch (ArgumentNullException ex)
+            {
+                return BadRequest(new { code = 400, ex.Message, ex.ParamName });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { ex.HResult, ex.Message, ex.InnerException });
+            }
+        }
+
+        ///<include file='../DocXML/AdministrateControllerDoc.xml' path='docs/members[@name="controller"]/DeleteClientData/*'/>
+        [MapToApiVersion("1.0")]
+        [HttpDelete("client-data/{firstName}-{lastName}", Name = "DeleteClientData")]
+        [ProducesResponseType(typeof(StatusCode201), (int)HttpStatusCode.Created)]
+        public IActionResult DeleteClientData([FromRoute] string firstName, string lastName)
+        {
+            try
+            {
+                clientDataService.deleteClientData($"{firstName}-{lastName}");
+                return Ok(new StatusCode201($"{firstName}-{lastName}"));
             }
             catch (StatusCode404 ex)
             {

@@ -2,6 +2,7 @@
 using AdminService.DAL.Entities;
 using AdminService.DAL.Infrastructures;
 using AdminService.DAL.Interfaces;
+using Microsoft.Identity.Client;
 
 namespace AdminService.DAL.Repositories
 {
@@ -15,6 +16,11 @@ namespace AdminService.DAL.Repositories
         }
 
         public IEnumerable<ProductOrder>? getAllItems() => context.productOrders;
+
+        public ProductOrder getItem(string anme)
+        {
+            throw new NotImplementedException("blank method of IRepository<ProductOrder>");
+        }
 
         public void deleteItem(string guid)
         {  

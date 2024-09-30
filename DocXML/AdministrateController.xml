@@ -14,9 +14,14 @@
 				request to delete entity ProductOrder by guid after registration it
 			</summary><responce code="201">deleted ProductOrder from SQl DB</responce><responce code="404">Failed request: Not found data</responce><responce code="409">Failed request: No connection to SqlDb carsdata</responce>
         </member>
-        <member name="M:AdminService.Controllers.AdministrateController.DeleteClientData(System.String)">
+        <member name="M:AdminService.Controllers.AdministrateController.GetClientData(System.String,System.String)">
             <summary>
 				request to delete entity ClientData with entity dependecy ClientOrder
+			</summary><responce code="200">deleted ClientData from SQl DB</responce><responce code="404">Failed request: Not found data</responce><responce code="409">Failed request: No connection to SqlDb carsdata</responce>
+        </member>
+        <member name="M:AdminService.Controllers.AdministrateController.DeleteClientData(System.String,System.String)">
+            <summary>
+				request to get entity ClientData with entity dependecy ClientOrder
 			</summary><responce code="201">deleted ClientData from SQl DB</responce><responce code="404">Failed request: Not found data</responce><responce code="409">Failed request: No connection to SqlDb carsdata</responce>
         </member>
     </members>
