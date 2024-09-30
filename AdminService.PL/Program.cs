@@ -14,9 +14,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddDbContext<ProductContext>(configure => configure.UseSqlServer(builder.Configuration.GetConnectionString("SmarterDbConnection")));
-builder.Services.AddControllers();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IOrderService, OrderService>();
+builder.Services.AddScoped<IClientDataService, ClientDataService>();
+builder.Services.AddControllers();
 
 //set for varsioning in Swagger;
 builder.Services.AddMvc(options => options.EnableEndpointRouting = false);

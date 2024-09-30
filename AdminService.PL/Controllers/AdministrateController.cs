@@ -15,12 +15,14 @@ namespace AdminService.Controllers
 
     public class AdministrateController : ControllerBase
     {
-        private readonly IOrderService orderServ;
+        private readonly IOrderService orderService;
+        private readonly IClientDataService clientDataService;
         private readonly ILogger<AdministrateController> logger;
 
-        public AdministrateController(IOrderService orderService, ILogger<AdministrateController> logger)
+        public AdministrateController(IOrderService orderService, IClientDataService clientDataService, ILogger<AdministrateController> logger)
         {
-            this.orderServ = orderService;
+            this.orderService = orderService;
+            this.clientDataService = clientDataService;
             this.logger = logger;
         }
 
@@ -28,12 +30,12 @@ namespace AdminService.Controllers
         [MapToApiVersion("1.0")]
         [HttpGet("product-orders", Name = "GetProductOrders")]
         [ProducesResponseType(typeof(IEnumerable<ProductOrder>), (int)HttpStatusCode.OK)]
-        [ProducesResponseType(typeof(StatusCode404), (int)HttpStatusCode.NotFound)]
+        //[ProducesResponseType(typeof(StatusCode404), (int)HttpStatusCode.NotFound)]
         public ActionResult<IEnumerable<ProductOrder>> GetAllProductOrders()
         {
             try
             {
-                return Ok(orderServ.getAllOrders());
+                return Ok(orderService.getAllOrders());
             }
             catch (StatusCode404 ex)
             {
@@ -53,8 +55,29 @@ namespace AdminService.Controllers
         {
             try
             {
-                orderServ.deleteOrder(guid);
+                orderService.deleteOrder(guid);
                 return Ok(new StatusCode201(guid));
+            }
+            catch (StatusCode404 ex)
+            {
+                return NotFound(new { ex.code, ex.Message, ex.property });
+            }
+            catch (ArgumentNullException ex)
+            {
+                return BadRequest(new { code = 400, ex.Message, ex.ParamName });
+            }
+        }
+
+        ///<include file='../DocXML/AdministrateControllerDoc.xml' path='docs/members[@name="controller"]/DeleteClientData/*'/>
+        [MapToApiVersion("1.0")]
+        [HttpDelete("client-data/{name}", Name = "DeleteClientData")]
+        [ProducesResponseType(typeof(StatusCode201), (int)HttpStatusCode.Created)]
+        public IActionResult DeleteClientData([FromRoute] string name)
+        {
+            try
+            {
+                clientDataService.deleteClient(name);
+                return Ok(new StatusCode201(name));
             }
             catch (StatusCode404 ex)
             {

@@ -8,6 +8,7 @@ namespace AdminService.DAL.Repositories
     {
         private ProductContext context;
         private ProductOrderRepository productOrderRepository = null!;
+        private ClientDataRepository clientDataRepository = null!;
 
         private bool disposed = false;
 
@@ -23,6 +24,16 @@ namespace AdminService.DAL.Repositories
                 if (productOrderRepository == null)
                     productOrderRepository = new ProductOrderRepository(context);
                 return productOrderRepository;
+            }
+        }
+
+        public IRepository<ClientData> clientsData
+        {
+            get
+            {
+                if (clientDataRepository == null)
+                    clientDataRepository = new ClientDataRepository(context);
+                return clientDataRepository;
             }
         }
 

@@ -17,5 +17,13 @@
 			<responce code="404">Failed request: Not found data</responce>
 			<responce code="409">Failed request: No connection to SqlDb carsdata</responce>
 		</DeleteProductOrder>
+		<DeleteClientData>
+			<summary>
+				request to delete entity ClientData with entity dependecy ClientOrder
+			</summary>
+			<responce code="201">deleted ClientData from SQl DB</responce>
+			<responce code="404">Failed request: Not found data</responce>
+			<responce code="409">Failed request: No connection to SqlDb carsdata</responce>
+		</DeleteClientData>
     </members>
 </docs>

@@ -19,7 +19,7 @@ namespace AdminService.DAL.Repositories
         public void deleteItem(string guid)
         {  
             ProductOrder? productOrder = this.context.productOrders.FirstOrDefault(o => o.guid.Equals(guid));
-            if (productOrder == null) throw new StatusCode404("productorders");
+            if (productOrder == null) throw new StatusCode404(guid);
 
             this.context.productOrders.Remove(productOrder);
         }
