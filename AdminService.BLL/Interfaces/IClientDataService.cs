@@ -13,6 +13,9 @@ namespace AdminService.BLL.Interfaces
         IUnitOfWork db { get; }
 
         ClientData getClientData(string? name);
+
+        void addClientData(ClientData? clientData);
+
         void deleteClientData(string? name);
 
         void Dispose();

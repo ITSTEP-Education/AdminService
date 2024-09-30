@@ -17,7 +17,12 @@ namespace AdminService.DAL.Repositories
 
         public IEnumerable<ProductOrder>? getAllItems() => context.productOrders;
 
-        public ProductOrder getItem(string anme)
+        public ProductOrder getItem(string name)
+        {
+            throw new NotImplementedException("blank method of IRepository<ProductOrder>");
+        }
+
+        public void addItem(ProductOrder productOrder)
         {
             throw new NotImplementedException("blank method of IRepository<ProductOrder>");
         }

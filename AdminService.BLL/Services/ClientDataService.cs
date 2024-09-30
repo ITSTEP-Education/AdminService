@@ -25,6 +25,20 @@ namespace AdminService.BLL.Services
             return db.clientsData.getItem(name);
         }
 
+        public void addClientData(ClientData? clientData)
+        {
+            if (clientData == null){
+                throw new ArgumentNullException(nameof(clientData));
+            }
+
+            clientData.firstName = clientData.firstName.ToLower();
+            clientData.lastName = clientData.lastName.ToLower();
+            clientData.age = Math.Abs(clientData.age);
+
+            db.clientsData.addItem(clientData);
+            db.Save();
+        }
+
         public void deleteClientData(string? name)
         {
             if (name == null || name == string.Empty) throw new ArgumentNullException(nameof(name));

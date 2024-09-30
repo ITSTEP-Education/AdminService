@@ -30,6 +30,8 @@ namespace AdminService.DAL.Repositories
             return clientData;
         }
 
+        public void addItem(ClientData clientData) => this.context.Add(clientData);
+
         public void deleteItem(string name)
         {
             (string firstName, string lastName) = getFirstLastName(name);

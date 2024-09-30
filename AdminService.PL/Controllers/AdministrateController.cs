@@ -6,13 +6,14 @@ using AdminService.BLL.Infrastructures;
 using Asp.Versioning;
 using System.Net;
 using AdminService.DAL.Infrastructures;
+using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 
 namespace AdminService.Controllers
 {
     [ApiController]
     [ApiVersion("1.0")]
+    [ApiVersion("2.0")]
     [Route("api/v{version:apiVersion}/[controller]")]
-
     public class AdministrateController : ControllerBase
     {
         private readonly IOrderService orderService;
@@ -26,6 +27,7 @@ namespace AdminService.Controllers
             this.logger = logger;
         }
 
+        //=======================HttpRequest of entity ProductOrder=======================//
         ///<include file='../DocXML/AdministrateControllerDoc.xml' path='docs/members[@name="controller"]/GetAllProductOrders/*'/>
         [MapToApiVersion("1.0")]
         [HttpGet("product-orders", Name = "GetProductOrders")]
@@ -68,8 +70,10 @@ namespace AdminService.Controllers
             }
         }
 
+        //=======================HttpRequest of entity ClientData=======================//
+
         ///<include file='../DocXML/AdministrateControllerDoc.xml' path='docs/members[@name="controller"]/GetClientData/*'/>
-        [MapToApiVersion("1.0")]
+        [MapToApiVersion("2.0")]
         [HttpGet("client-data/{firstName}-{lastName}", Name = "GetClientData")]
         [ProducesResponseType(typeof(ClientData), (int)HttpStatusCode.OK)]
         public ActionResult<ClientData> GetClientData([FromRoute] string firstName, string lastName)
@@ -92,8 +96,31 @@ namespace AdminService.Controllers
             }
         }
 
+        ///<include file='../DocXML/AdministrateControllerDoc.xml' path='docs/members[@name="controller"]/AddClientData/*'/>
+        [MapToApiVersion("2.0")]
+        [HttpPost("client-data", Name = "AddClientData")]
+        [ProducesResponseType(typeof(StatusCode201), (int)HttpStatusCode.Created)]
+        public IActionResult AddClientData([FromBody] ClientData? clientData)
+        {
+            if (!ModelState.IsValid) return BadRequest("model is not valid");
+
+            try
+            {
+                clientDataService.addClientData(clientData);
+                return Ok(new StatusCode201($"{clientData?.firstName}-{clientData?.lastName}"));
+            }
+            catch (ArgumentNullException ex)
+            {
+                return BadRequest(new { code = 400, ex.Message, ex.ParamName });
+            }
+            catch (SystemException ex)
+            {
+                return BadRequest(new { ex.HResult, ex.Message, ex.InnerException });
+            }
+        }
+
         ///<include file='../DocXML/AdministrateControllerDoc.xml' path='docs/members[@name="controller"]/DeleteClientData/*'/>
-        [MapToApiVersion("1.0")]
+        [MapToApiVersion("2.0")]
         [HttpDelete("client-data/{firstName}-{lastName}", Name = "DeleteClientData")]
         [ProducesResponseType(typeof(StatusCode201), (int)HttpStatusCode.Created)]
         public IActionResult DeleteClientData([FromRoute] string firstName, string lastName)

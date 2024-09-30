@@ -19,12 +19,20 @@
 		</DeleteProductOrder>
 		<GetClientData>
 			<summary>
-				request to delete entity ClientData with entity dependecy ClientOrder
+				request to delete entity ClientData without entity dependecy ClientOrder
 			</summary>
 			<responce code="200">deleted ClientData from SQl DB</responce>
 			<responce code="404">Failed request: Not found data</responce>
 			<responce code="409">Failed request: No connection to SqlDb carsdata</responce>
 		</GetClientData>
+		<AddClientData>
+			<summary>
+				request to add entity ClientData with entity dependecy ClientOrder
+			</summary>
+			<responce code="200">deleted ClientData from SQl DB</responce>
+			<responce code="404">Failed request: Not found data</responce>
+			<responce code="409">Failed request: No connection to SqlDb carsdata</responce>
+		</AddClientData>
 		<DeleteClientData>
 			<summary>
 				request to get entity ClientData with entity dependecy ClientOrder

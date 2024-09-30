@@ -5,6 +5,8 @@
         public IEnumerable<T>? getAllItems();
 
         public T getItem(string name);
+
+        public void addItem(T item);
         public void deleteItem(string name);
     }
 }
