@@ -6,6 +6,7 @@ namespace AdminService.DAL.Interfaces
     {
         public IRepository<ProductOrder> productOrders { get; }
         public IRepository<ClientData> clientsData { get; }
+        public IRepository<ClientOrder> clientOrders { get; }
 
         public void Save();
     }

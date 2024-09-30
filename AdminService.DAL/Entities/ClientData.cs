@@ -1,6 +1,7 @@
 ﻿using AdminService.DAL.Filters;
 using AdminService.DAL.Infrastructures;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AdminService.DAL.Entities
 {
@@ -8,6 +9,8 @@ namespace AdminService.DAL.Entities
     public class ClientData : IValidatableObject
     {
         [SwaggerIgnore]
+        [Key]
+        [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int id { get; set; }
         public string firstName { get; set; } = null!;
         public string lastName { get; set; } = null!;

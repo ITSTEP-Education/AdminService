@@ -1,11 +1,6 @@
 ﻿using AdminService.BLL.Interfaces;
 using AdminService.DAL.Entities;
 using AdminService.DAL.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AdminService.BLL.Services
 {
@@ -31,12 +26,8 @@ namespace AdminService.BLL.Services
                 throw new ArgumentNullException(nameof(clientData));
             }
 
-            clientData.firstName = clientData.firstName.ToLower();
-            clientData.lastName = clientData.lastName.ToLower();
-            clientData.age = Math.Abs(clientData.age);
-
             db.clientsData.addItem(clientData);
-            db.Save();
+            //db.Save();
         }
 
         public void deleteClientData(string? name)

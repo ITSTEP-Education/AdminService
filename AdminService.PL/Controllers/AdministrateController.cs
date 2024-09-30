@@ -2,11 +2,11 @@
 using System.Data.Common;
 using AdminService.BLL.Interfaces;
 using AdminService.DAL.Entities;
-using AdminService.BLL.Infrastructures;
 using Asp.Versioning;
 using System.Net;
 using AdminService.DAL.Infrastructures;
-using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
+using AutoMapper;
+using AdminService.BLL.Services;
 
 namespace AdminService.Controllers
 {
@@ -18,12 +18,17 @@ namespace AdminService.Controllers
     {
         private readonly IOrderService orderService;
         private readonly IClientDataService clientDataService;
+        private readonly IClientOrderService clientOrderService;
+
         private readonly ILogger<AdministrateController> logger;
 
-        public AdministrateController(IOrderService orderService, IClientDataService clientDataService, ILogger<AdministrateController> logger)
+        public AdministrateController(ILogger<AdministrateController> logger,
+            IOrderService orderService, IClientDataService clientDataService, IClientOrderService clientOrderService)
         {
             this.orderService = orderService;
             this.clientDataService = clientDataService;
+            this.clientOrderService = clientOrderService;
+
             this.logger = logger;
         }
 
@@ -100,13 +105,41 @@ namespace AdminService.Controllers
         [MapToApiVersion("2.0")]
         [HttpPost("client-data", Name = "AddClientData")]
         [ProducesResponseType(typeof(StatusCode201), (int)HttpStatusCode.Created)]
-        public IActionResult AddClientData([FromBody] ClientData? clientData)
+        public IActionResult AddClientData([FromQuery] string guid, [FromBody] ClientData? clientData)
         {
             if (!ModelState.IsValid) return BadRequest("model is not valid");
+            else if (clientData == null) return BadRequest("ClientData is null");
 
             try
             {
-                clientDataService.addClientData(clientData);
+                ProductOrder productOrder = orderService.getProductOrder(guid);
+
+                //mapping ProductOrder -> ClientOrder
+                IMapper mapper = new MapperConfiguration(c => c.CreateMap<ProductOrder, ClientOrder>()).CreateMapper();
+                var clientOrder = mapper.Map<ProductOrder, ClientOrder>(productOrder);
+
+                //add to SQL DB two entities binded ClientData.HasOne.WithOne.ClientOrder
+                ClientData tempClientData = new ClientData()
+                {
+                    firstName = clientData.firstName.ToLower(),
+                    lastName = clientData.lastName.ToLower(),
+                    age = Math.Abs(clientData.age),
+                    mobile = clientData.mobile,
+                };
+
+                clientDataService.addClientData(tempClientData);
+
+                ClientOrder tempClientOrder = new ClientOrder()
+                {
+                    name = clientOrder.name,
+                    typeEngeeniring = clientOrder.typeEngeeniring,
+                    timeStudy = clientOrder.timeStudy,
+                    sumPay = clientOrder.sumPay,
+                    clientData = tempClientData
+                };
+
+                clientOrderService.addClientOrder(tempClientOrder);
+
                 return Ok(new StatusCode201($"{clientData?.firstName}-{clientData?.lastName}"));
             }
             catch (ArgumentNullException ex)

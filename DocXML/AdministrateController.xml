@@ -19,7 +19,7 @@
 				request to delete entity ClientData without entity dependecy ClientOrder
 			</summary><responce code="200">deleted ClientData from SQl DB</responce><responce code="404">Failed request: Not found data</responce><responce code="409">Failed request: No connection to SqlDb carsdata</responce>
         </member>
-        <member name="M:AdminService.Controllers.AdministrateController.AddClientData(AdminService.DAL.Entities.ClientData)">
+        <member name="M:AdminService.Controllers.AdministrateController.AddClientData(System.String,AdminService.DAL.Entities.ClientData)">
             <summary>
 				request to add entity ClientData with entity dependecy ClientOrder
 			</summary><responce code="200">deleted ClientData from SQl DB</responce><responce code="404">Failed request: Not found data</responce><responce code="409">Failed request: No connection to SqlDb carsdata</responce>

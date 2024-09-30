@@ -8,7 +8,8 @@ namespace AdminService.DAL.EF
     {
         public void Configure(EntityTypeBuilder<ClientOrder> builder)
         {
-            builder.ToTable("clientorders").HasKey(c => c.id);
+            builder.ToTable("clientorders").HasKey(co => co.id);
+            builder.Property(co => co.id).ValueGeneratedOnAdd();
             builder.Property(co => co.clientDataId).HasColumnName("FK_ClientId");
             builder.HasIndex(co => co.clientDataId).IsUnique().HasDatabaseName("IX_ClientOrder_ClientDataId");
         }

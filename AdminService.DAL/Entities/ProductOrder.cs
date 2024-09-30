@@ -1,5 +1,4 @@
 ﻿using AdminService.DAL.Filters;
-using System.ComponentModel.DataAnnotations;
 
 
 namespace AdminService.DAL.Entities

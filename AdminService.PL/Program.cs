@@ -17,6 +17,7 @@ builder.Services.AddDbContext<ProductContext>(configure => configure.UseSqlServe
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<IClientDataService, ClientDataService>();
+builder.Services.AddScoped<IClientOrderService, ClientOrderService>();
 builder.Services.AddControllers();
 
 //set for varsioning in Swagger;

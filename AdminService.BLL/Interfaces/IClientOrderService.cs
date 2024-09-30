@@ -3,15 +3,11 @@ using AdminService.DAL.Interfaces;
 
 namespace AdminService.BLL.Interfaces
 {
-    public interface IOrderService
+    public interface IClientOrderService
     {
         IUnitOfWork db { get; }
 
-        IEnumerable<ProductOrder> getAllOrders();
-
-        ProductOrder getProductOrder(string? guid);
-
-        void deleteOrder(string guid);
+        void addClientOrder(ClientOrder? clientOrder);
 
         void Dispose();
     }
