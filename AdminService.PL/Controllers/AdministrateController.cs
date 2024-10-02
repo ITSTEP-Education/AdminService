@@ -7,9 +7,11 @@ using System.Net;
 using AdminService.DAL.Infrastructures;
 using AutoMapper;
 using AdminService.BLL.Services;
+using Microsoft.AspNetCore.Cors;
 
 namespace AdminService.Controllers
 {
+    [EnableCors("AllowAll")]
     [ApiController]
     [ApiVersion("1.0")]
     [ApiVersion("2.0")]
@@ -33,7 +35,7 @@ namespace AdminService.Controllers
         }
 
         //=======================HttpRequest of entity ProductOrder=======================//
-        ///<include file='../DocXML/AdministrateControllerDoc.xml' path='docs/members[@name="controller"]/GetAllProductOrders/*'/>
+        /////<include file='../DocXML/AdministrateControllerDoc.xml' path='docs/members[@name="controller"]/GetAllProductOrders/*'/>
         [MapToApiVersion("1.0")]
         [HttpGet("product-orders", Name = "GetProductOrders")]
         [ProducesResponseType(typeof(IEnumerable<ProductOrder>), (int)HttpStatusCode.OK)]
@@ -54,7 +56,7 @@ namespace AdminService.Controllers
             }
         }
 
-        ///<include file='../DocXML/AdministrateControllerDoc.xml' path='docs/members[@name="controller"]/DeleteProductOrder/*'/>
+        /////<include file='../DocXML/AdministrateControllerDoc.xml' path='docs/members[@name="controller"]/DeleteProductOrder/*'/>
         [MapToApiVersion("1.0")]
         [HttpDelete("product-order", Name = "DeleteProductOrder")]
         [ProducesResponseType(typeof(StatusCode201), (int)HttpStatusCode.Created)]
@@ -77,7 +79,7 @@ namespace AdminService.Controllers
 
         //=======================HttpRequest of entity ClientData=======================//
 
-        ///<include file='../DocXML/AdministrateControllerDoc.xml' path='docs/members[@name="controller"]/GetClientData/*'/>
+        /////<include file='../DocXML/AdministrateControllerDoc.xml' path='docs/members[@name="controller"]/GetClientData/*'/>
         [MapToApiVersion("2.0")]
         [HttpGet("client-data/{firstName}-{lastName}", Name = "GetClientData")]
         [ProducesResponseType(typeof(ClientData), (int)HttpStatusCode.OK)]
@@ -101,7 +103,7 @@ namespace AdminService.Controllers
             }
         }
 
-        ///<include file='../DocXML/AdministrateControllerDoc.xml' path='docs/members[@name="controller"]/AddClientData/*'/>
+        /////<include file='../DocXML/AdministrateControllerDoc.xml' path='docs/members[@name="controller"]/AddClientData/*'/>
         [MapToApiVersion("2.0")]
         [HttpPost("client-data", Name = "AddClientData")]
         [ProducesResponseType(typeof(StatusCode201), (int)HttpStatusCode.Created)]
@@ -152,7 +154,7 @@ namespace AdminService.Controllers
             }
         }
 
-        ///<include file='../DocXML/AdministrateControllerDoc.xml' path='docs/members[@name="controller"]/DeleteClientData/*'/>
+        /////<include file='../DocXML/AdministrateControllerDoc.xml' path='docs/members[@name="controller"]/DeleteClientData/*'/>
         [MapToApiVersion("2.0")]
         [HttpDelete("client-data/{firstName}-{lastName}", Name = "DeleteClientData")]
         [ProducesResponseType(typeof(StatusCode201), (int)HttpStatusCode.Created)]
